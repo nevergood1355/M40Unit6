@@ -1,5 +1,8 @@
 package com.skill_factory.unit6
 
+import android.app.Activity
+import android.app.Application
+import android.content.Intent
 import dagger.*
 import javax.inject.Inject
 import javax.inject.Scope
@@ -28,13 +31,17 @@ abstract class Screen1Module {
     abstract fun bindPresenter(presenter: Screen1Presenter) : BasePresenter
 }
 
-class Screen1Presenter @Inject constructor(private val bottomButton: BottomButtonView) : BasePresenter {
+class Screen1Presenter @Inject constructor(private val bottomButton: BottomButtonView, private val activity: Activity) : BasePresenter {
 
     override fun attachView() {
         bottomButton.setLabelText("BottomButton1")
         bottomButton.setButtonText("Next")
-        bottomButton.setTarget(Screen2::class.java)
+        bottomButton.setOnClickListener {
+            activity.startActivity(Intent(activity, Screen2::class.java))
+        }
     }
+
+
 
     override fun detachView() {
 

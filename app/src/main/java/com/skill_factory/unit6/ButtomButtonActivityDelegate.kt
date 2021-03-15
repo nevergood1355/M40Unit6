@@ -2,6 +2,7 @@ package com.skill_factory.unit6
 
 import android.app.Activity
 import android.content.Intent
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import kotlin.reflect.KClass
 interface BottomButtonView : ActivityDelegate {
     fun setLabelText(text: String)
     fun setButtonText(text: String)
-    fun setTarget(target: Class<*>)
+    fun setOnClickListener(l : View.OnClickListener)
 }
 
 data class BottomButtonConfiguration(val bottomButtonId: Int?, val labelId: Int? = null)
@@ -33,10 +34,7 @@ class BottomButtonActivityDelegate @Inject constructor(private val bottomButtonC
         button?.text = text
     }
 
-    override fun setTarget(target: Class<*>) {
-        button?.setOnClickListener {
-            activity.startActivity(Intent(activity, target))
-        }
+    override fun setOnClickListener(l : View.OnClickListener) {
+        button?.setOnClickListener(l)
     }
-
 }
